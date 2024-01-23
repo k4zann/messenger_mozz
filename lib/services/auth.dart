@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:messenger_mozz/services/login_or_register.dart';
 import 'package:messenger_mozz/ui/home_page/home.dart';
 import 'package:messenger_mozz/ui/login_page/login.dart';
 
@@ -15,7 +16,7 @@ class Authenticate extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const LoginPage();
+            return const LoginOrRegister();
           }
         },
       ),
