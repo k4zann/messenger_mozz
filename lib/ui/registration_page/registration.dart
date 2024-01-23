@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
 import '../../widgets/login_button.dart';
 import '../../widgets/login_textfield.dart';
+import '../home_page/home.dart';
 import '../login_page/login.dart';
 
 class RegistrationPage extends StatefulWidget {
