@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_mozz/services/auth_service.dart';
 import 'package:messenger_mozz/widgets/login_button.dart';
 import 'package:messenger_mozz/widgets/login_textfield.dart';
+import 'package:provider/provider.dart';
 
 import '../registration_page/registration.dart';
 
@@ -17,6 +19,19 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordController = TextEditingController();
 
 
+  void login() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.login(_emailController.text, _passwordController.text);
+    }catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               LoginButton(
                 onTap: (){
-
+                  login();
                 },
                 text: 'Войти'
               ),

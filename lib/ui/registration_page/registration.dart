@@ -17,6 +17,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
 
+  void register() {
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +53,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   const SizedBox(height: 20),
                   LoginButton(
                       onTap: (){
-
+                        register();
                       },
                       text: 'Зарегистрироваться'
                   ),
@@ -56,7 +61,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "У вас уже есть аккаунт?",
                         style: TextStyle(
                           fontSize: 16,

@@ -1,8 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:messenger_mozz/services/auth_service.dart';
 import 'package:messenger_mozz/ui/registration_page/registration.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyBX8xxHB3X7MyMQX8zEN6PdKZi_xWIM_QA",
+      appId: "1:952874351110:android:0e3c4d6a7abe67b58ce187",
+      messagingSenderId: "952874351110",
+      projectId: "messengermozz",
+    ),
+  );
+  runApp(ChangeNotifierProvider(
+      create: (context) => AuthService(),
+      child: const MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
