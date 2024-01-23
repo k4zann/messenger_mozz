@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_mozz/ui/registration_page/registration.dart';
 
-import '../ui/login_page/login.dart';
+import '../../ui/login_page/login.dart';
 
 class LoginOrRegister extends StatefulWidget{
   const LoginOrRegister({Key? key}) : super(key: key);

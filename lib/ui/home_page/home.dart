@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:messenger_mozz/services/auth_service.dart';
+import 'package:messenger_mozz/services/auth/auth_service.dart';
 import 'package:provider/provider.dart';
 
 import '../chat_page/chat_page.dart';

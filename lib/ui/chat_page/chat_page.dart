@@ -19,30 +19,8 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: widget.color,
-              child: Text(
-                widget.initials,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            SizedBox(width: 10,),
-            Text(
-              widget.userName
-            ),
-          ],
+        title: Text(
+          widget.userName
         ),
       ),
     );

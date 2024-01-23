@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_mozz/services/auth_service.dart';
+import 'package:messenger_mozz/services/auth/auth_service.dart';
 import 'package:messenger_mozz/widgets/login_button.dart';
 import 'package:messenger_mozz/widgets/login_textfield.dart';
 import 'package:provider/provider.dart';
