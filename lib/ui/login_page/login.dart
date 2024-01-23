@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:messenger_mozz/widgets/login_button.dart';
 import 'package:messenger_mozz/widgets/login_textfield.dart';
 
+import '../registration_page/registration.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
 
@@ -30,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                'Login',
+                'Вход',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -45,24 +47,28 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: (){
 
                 },
-                text: 'Login'
+                text: 'Войти'
               ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?",
+                    "У вас нет аккаунта?",
                     style: TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   TextButton(
                     onPressed: (){
-
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => RegistrationPage()),
+                          (route) => false
+                      );
                     },
                     child: Text(
-                      'Register',
+                      'Зарегистрироваться',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

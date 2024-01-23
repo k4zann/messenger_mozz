@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_mozz/ui/login_page/login.dart';
+import 'package:messenger_mozz/ui/registration_page/registration.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: RegistrationPage(),
     );
   }
 }
