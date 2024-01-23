@@ -25,8 +25,28 @@ class ChatService extends ChangeNotifier {
 
     List<String> ids = [currentUserId, userId];
     ids.sort();
-    
+    String chatRoomId = ids.join('_');
+
+    await _firebaseFirestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('messages')
+        .add(message.toMap());
   }
 
   // get message function
+
+  Stream<QuerySnapshot> getMessage(String userId, String secondUserId) {
+    List<String> ids = [userId, secondUserId];
+
+    ids.sort();
+    String chatRoomId = ids.join('_');
+    return _firebaseFirestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('messages')
+        .orderBy('timestamp', descending: false)
+        .snapshots();
+  }
+
 }
