@@ -4,8 +4,7 @@ import 'package:messenger_mozz/ui/home_page/home.dart';
 import 'package:messenger_mozz/ui/login_page/login.dart';
 
 class Authenticate extends StatelessWidget {
-  const Authenticate({Key? key, required this.child}) : super(key: key);
-  final Widget child;
+  const Authenticate({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:messenger_mozz/widgets/login_button.dart';
 import 'package:messenger_mozz/widgets/login_textfield.dart';
 import 'package:provider/provider.dart';
 
+import '../home_page/home.dart';
 import '../registration_page/registration.dart';
 
 class LoginPage extends StatefulWidget {
