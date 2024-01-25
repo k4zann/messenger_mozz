@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) => ChatPage(
                   userId: data['uid'],
                   userName: data['name'],
+                  userEmail: data['email'],
                   initials: initials,
                   color: getRandomColor(),
                 ),
