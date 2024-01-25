@@ -1,16 +1,11 @@
 # messenger_mozz
 
-A new Flutter project.
+A simple Chat App with connected firebasefirestore and firebase authentication. The messages and data about the user is saved in the database that is created in the firebase.
 
-## Getting Started
+## Functionalities:
 
-This project is a starting point for a Flutter application.
+  - Registration
+  - Login
+  - The HomePage where all the users are listed
+  - The Chatting Page, where the user can send the message
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
