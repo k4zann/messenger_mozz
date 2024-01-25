@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 import '../../services/auth/auth_service.dart';
 import '../../widgets/login_button.dart';
 import '../../widgets/login_textfield.dart';
-import '../home_page/home.dart';
 import '../login_page/login.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+  final void Function()? onPressed;
+  const RegistrationPage({super.key, this.onPressed});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -132,15 +132,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                         ),
                         TextButton(
-                          onPressed: (){
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginPage(),
-                              ),
-                              (Route<dynamic> route) => false,
-                            );
-                          },
+                          onPressed: widget.onPressed,
                           child: Text(
                             'Войти',
                             style: TextStyle(

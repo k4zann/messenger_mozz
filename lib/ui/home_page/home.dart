@@ -86,7 +86,6 @@ class _HomePageState extends State<HomePage> {
       Colors.green,
       Colors.orange,
       Colors.purple,
-      // Add more colors as needed
     ];
 
     final Random random = Random();
@@ -94,9 +93,9 @@ class _HomePageState extends State<HomePage> {
   }
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
     if (_auth.currentUser!.email != data['email']) {
       String initials = _getInitials(data['name']);
+      Color color = getRandomColor();
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: ListTile(
@@ -109,13 +108,13 @@ class _HomePageState extends State<HomePage> {
                   userName: data['name'],
                   userEmail: data['email'],
                   initials: initials,
-                  color: getRandomColor(),
+                  color: color,
                 ),
               ),
             );
           },
           leading: CircleAvatar(
-            backgroundColor: getRandomColor(),
+            backgroundColor: color,
             child: Text(
               initials,
               style: const TextStyle(
@@ -134,7 +133,15 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           subtitle: Text(
-            "Уже сделал?",
+            'Последнее сообщение',
+            style: TextStyle(
+              color: Color(0xff5E7A90),
+              fontSize: 12,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          trailing: Text(
+            'Вчера',
             style: TextStyle(
               color: Color(0xff5E7A90),
               fontSize: 12,

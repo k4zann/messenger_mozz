@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:messenger_mozz/services/chat/chat_service.dart';
 
 import '../../widgets/message_bubble.dart';
@@ -13,7 +13,16 @@ class ChatPage extends StatefulWidget {
   final String userEmail;
   final String initials;
   final Color color;
-  const ChatPage({super.key, required this.userId, required this.userName, required this.userEmail, required this.initials, required this.color});
+
+
+  const ChatPage({
+    super.key,
+    required this.userId,
+    required this.userName,
+    required this.userEmail,
+    required this.initials,
+    required this.color
+  });
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -36,9 +45,33 @@ class _ChatPageState extends State<ChatPage> {
       }
     }
 
+    // Date creation
+    String formatDate(DateTime date) {
+      return DateFormat('dd.MM.yy').format(date);
+    }
+
+    Widget _buildDateHeader(DateTime date) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Center(
+          child: Text(
+            formatDate(date),
+            style: TextStyle(
+              color: Color(0xff9DB7CB),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+
+    bool isSameDay(DateTime date1, DateTime date2) {
+      return date1.day == date2.day;
+    }
+
+    // Message interface
     Widget _messageItem(DocumentSnapshot document) {
       Map<String, dynamic> message = document.data()! as Map<String, dynamic>;
-
       var alignment = message['senderId'] == _auth.currentUser!.uid
           ? Alignment.centerRight
           : Alignment.centerLeft;
@@ -61,7 +94,10 @@ class _ChatPageState extends State<ChatPage> {
       );
     }
 
+
+    // Message List
     Widget _messageList() {
+      DateTime? currentDate;
       return StreamBuilder(
         stream: _chatService.getMessage(widget.userId, _auth.currentUser!.uid),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -75,17 +111,29 @@ class _ChatPageState extends State<ChatPage> {
             );
           }
 
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-              return _messageItem(document);
-            }).toList(),
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (BuildContext context, int index) {
+              Map<String, dynamic> data = snapshot.data!.docs[index].data()! as Map<String, dynamic>;
+              DateTime messageDate = data['timestamp'].toDate();
+
+              if (currentDate == null || !isSameDay(currentDate!, messageDate)) {
+                currentDate = messageDate;
+                return _buildDateHeader(messageDate);
+              }
+
+              return _messageItem(snapshot.data!.docs[index]);
+            },
           );
         },
       );
     }
 
 
+
+
+
+    // For message input
     Widget _messageInput() {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -93,11 +141,18 @@ class _ChatPageState extends State<ChatPage> {
           children: [
             IconButton(
               icon: Icon(Icons.attach_file),
-              onPressed: () {},
-              iconSize: 24, // Set the icon size to a fixed value
+              onPressed: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                if (result != null) {
+                  print(result.files.first.path);
+                }
+              },
+              iconSize: 24,
             ),
             Expanded(
               child: TextField(
+                maxLines: null,
                 controller: _messageController,
                 decoration: InputDecoration(
                   filled: true,
@@ -118,12 +173,12 @@ class _ChatPageState extends State<ChatPage> {
             IconButton(
               onPressed: sendMessage,
               icon: Icon(Icons.send),
-              iconSize: 24, // Set the icon size to a fixed value
+              iconSize: 24,
             ),
             IconButton(
               onPressed: () {},
               icon: Icon(Icons.mic),
-              iconSize: 24, // Set the icon size to a fixed value
+              iconSize: 24,
             )
           ],
         ),
@@ -139,8 +194,41 @@ class _ChatPageState extends State<ChatPage> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          widget.userName
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: widget.color,
+              child: Text(
+                widget.initials,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(width: 10,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.userName,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'В сети',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff5E7A90),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       body: Column(
@@ -156,4 +244,3 @@ class _ChatPageState extends State<ChatPage> {
   }
 }
 
-//TODO need to fix the chatting page appbar, and also need to add function: sendMessage, getMessage, attachFile, sendAudi

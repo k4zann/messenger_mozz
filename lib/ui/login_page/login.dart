@@ -4,11 +4,11 @@ import 'package:messenger_mozz/widgets/login_button.dart';
 import 'package:messenger_mozz/widgets/login_textfield.dart';
 import 'package:provider/provider.dart';
 
-import '../home_page/home.dart';
 import '../registration_page/registration.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key});
+  final void Function()? onPressed;
+  const LoginPage({Key? key, this.onPressed}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -76,13 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: (){
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegistrationPage()),
-                          (route) => false
-                      );
-                    },
+                    onPressed: widget.onPressed,
                     child: Text(
                       'Зарегистрироваться',
                       style: TextStyle(
